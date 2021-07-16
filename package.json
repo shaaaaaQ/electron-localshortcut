@@ -4,7 +4,6 @@
 	"description": "register/unregister a keyboard shortcut locally to a BrowserWindow instance, without using a Menu",
 	"license": "MIT",
 	"scripts": {
-		"doc": "documentation readme index.js --section=API",
 		"start": "electron example/example.js"
 	},
 	"files": [
@@ -16,7 +15,6 @@
 		"keyboardevents-areequal": "^0.2.2"
 	},
 	"devDependencies": {
-		"documentation": "^13.2.5",
 		"electron": "^13.1.7"
 	}
 }
