@@ -1,7 +1,7 @@
 'use strict';
 
 const { BrowserWindow, app, Menu } = require('electron');
-const electronLocalshortcut = require('.');
+const electronLocalshortcut = require('../');
 
 app.on('ready', () => {
 	const win = new BrowserWindow({});

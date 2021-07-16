@@ -2,18 +2,15 @@
 	"name": "electron-localshortcut",
 	"version": "3.2.1",
 	"description": "register/unregister a keyboard shortcut locally to a BrowserWindow instance, without using a Menu",
-	"repository": "parro-it/electron-localshortcut",
 	"license": "MIT",
-	"author": "andrea@parro.it",
 	"scripts": {
 		"doc": "documentation readme index.js --section=API",
-		"start": "electron example.js"
+		"start": "electron example/example.js"
 	},
 	"files": [
 		"index.js"
 	],
 	"dependencies": {
-		"debug": "^4.3.2",
 		"electron-is-accelerator": "^0.2.0",
 		"keyboardevent-from-electron-accelerator": "^2.0.0",
 		"keyboardevents-areequal": "^0.2.2"
