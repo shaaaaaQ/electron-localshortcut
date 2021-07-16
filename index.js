@@ -1,8 +1,8 @@
 'use strict';
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron');
 const isAccelerator = require('electron-is-accelerator');
 const equals = require('keyboardevents-areequal');
-const {toKeyEvent} = require('keyboardevent-from-electron-accelerator');
+const { toKeyEvent } = require('keyboardevent-from-electron-accelerator');
 const _debug = require('debug');
 
 const debug = _debug('electron-localshortcut');
@@ -17,7 +17,7 @@ const title = win => {
 	if (win) {
 		try {
 			return win.getTitle();
-		// eslint-disable-next-line no-unused-vars
+			// eslint-disable-next-line no-unused-vars
 		} catch (error) {
 			return 'A destroyed window';
 		}
@@ -129,10 +129,10 @@ const _onBeforeInput = shortcutsOfWindow => (e, input) => {
 	const event = _normalizeEvent(input);
 
 	debug(`before-input-event: ${input} is translated to: ${event}`);
-	for (const {eventStamp, callback} of shortcutsOfWindow) {
+	for (const { eventStamp, callback, enabled } of shortcutsOfWindow) {
 		if (equals(eventStamp, event)) {
 			debug(`eventStamp: ${eventStamp} match`);
-			callback();
+			if (enabled) callback();
 
 			return;
 		}

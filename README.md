@@ -5,11 +5,6 @@ locally to a BrowserWindow instance, without using a Menu.
 
 This is built to circumvent [this Electron issue](https://github.com/atom/electron/issues/1334).
 
-[![Travis Build Status](https://img.shields.io/travis/parro-it/electron-localshortcut/master.svg)](http://travis-ci.org/parro-it/electron-localshortcut)
-[![NPM module](https://img.shields.io/npm/v/electron-localshortcut.svg)](https://npmjs.org/package/electron-localshortcut)
-[![NPM downloads](https://img.shields.io/npm/dt/electron-localshortcut.svg)](https://npmjs.org/package/electron-localshortcut)
-[![Greenkeeper badge](https://badges.greenkeeper.io/parro-it/electron-localshortcut.svg)](https://greenkeeper.io/)
-
 # Installation
 
 ```bash

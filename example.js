@@ -1,6 +1,6 @@
 'use strict';
 
-const {BrowserWindow, app, Menu} = require('electron');
+const { BrowserWindow, app, Menu } = require('electron');
 const electronLocalshortcut = require('.');
 
 app.on('ready', () => {
@@ -9,8 +9,8 @@ app.on('ready', () => {
 
 	// Should raise a warning in console
 	try {
-		electronLocalshortcut.register(win, 'C+C', () => {});
-	// eslint-disable-next-line no-unused-vars
+		electronLocalshortcut.register(win, 'C+C', () => { });
+		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
 
 	}
