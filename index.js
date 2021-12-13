@@ -229,15 +229,11 @@ function unregister(win, accelerator) {
 
 	if (!windowsWithShortcuts.has(wc)) return
 
-	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
-
 	const eventStamp = toKeyEvent(accelerator);
-	const shortcutIdx = _findShortcut(eventStamp, shortcutsOfWindow);
-	if (shortcutIdx === -1) {
-		return;
-	}
 
-	shortcutsOfWindow.splice(shortcutIdx, 1);
+	windowsWithShortcuts.set(wc, windowsWithShortcuts.get(wc).filter(sc => !equals(sc.eventStamp, eventStamp)))
+
+	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 
 	// If the window has no more shortcuts,
 	// we remove it early from the WeakMap
@@ -265,6 +261,7 @@ function isRegistered(win, accelerator) {
 	_checkAccelerator(accelerator);
 	const wc = win.webContents;
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
+	//console.log(shortcutsOfWindow)
 	const eventStamp = toKeyEvent(accelerator);
 
 	return _findShortcut(eventStamp, shortcutsOfWindow) !== -1;
