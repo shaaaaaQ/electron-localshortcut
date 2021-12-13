@@ -3,9 +3,6 @@ const { app, BrowserWindow } = require('electron');
 const isAccelerator = require('electron-is-accelerator');
 const equals = require('keyboardevents-areequal');
 const { toKeyEvent } = require('keyboardevent-from-electron-accelerator');
-const _debug = require('debug');
-
-const debug = _debug('electron-localshortcut');
 
 // A placeholder to register shortcuts
 // on any window of the app.
@@ -13,25 +10,12 @@ const ANY_WINDOW = {};
 
 const windowsWithShortcuts = new WeakMap();
 
-const title = win => {
-	if (win) {
-		try {
-			return win.getTitle();
-			// eslint-disable-next-line no-unused-vars
-		} catch (error) {
-			return 'A destroyed window';
-		}
-	}
-
-	return 'An falsy value';
-};
-
 function _checkAccelerator(accelerator) {
 	if (!isAccelerator(accelerator)) {
 		const w = {};
 		Error.captureStackTrace(w);
-		const stack = w.stack ? w.stack : w.message;
-		const msg = `WARNING: ${accelerator} is not a valid accelerator.\n${stack}`;
+		const stack = w.stack ? w.stack.split('\n').slice(4).join('\n') : w.message;
+		const msg = `WARNING: ${accelerator} is not a valid accelerator.\n\n${stack}`;
 		console.error(msg);
 	}
 }
@@ -44,7 +28,6 @@ function _checkAccelerator(accelerator) {
  * @param  {BrowserWindow} win BrowserWindow instance
  */
 function disableAll(win) {
-	debug(`Disabling all shortcuts on window ${title(win)}`);
 	const wc = win.webContents;
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 
@@ -59,7 +42,6 @@ function disableAll(win) {
  * @param  {BrowserWindow} win BrowserWindow instance
  */
 function enableAll(win) {
-	debug(`Enabling all shortcuts on window ${title(win)}`);
 	const wc = win.webContents;
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 
@@ -75,7 +57,6 @@ function enableAll(win) {
  * @param  {BrowserWindow} win BrowserWindow instance
  */
 function unregisterAll(win) {
-	debug(`Unregistering all shortcuts on window ${title(win)}`);
 	const wc = win.webContents;
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 	if (shortcutsOfWindow && shortcutsOfWindow.removeListener) {
@@ -124,10 +105,8 @@ const _onBeforeInput = shortcutsOfWindow => (e, input) => {
 
 	const event = _normalizeEvent(input);
 
-	debug(`before-input-event: ${input} is translated to: ${event}`);
 	for (const { eventStamp, callback, enabled } of shortcutsOfWindow) {
 		if (equals(eventStamp, event) && enabled) {
-			debug(`eventStamp: ${eventStamp} match`);
 			callback();
 		}
 	}
@@ -161,17 +140,13 @@ function register(win, accelerator, callback) {
 		return;
 	}
 
-	debug(`Registering callback for ${accelerator} on window ${title(win)}`);
 	_checkAccelerator(accelerator);
 
-	debug(`${accelerator} seems a valid shortcut sequence.`);
 
 	let shortcutsOfWindow;
 	if (windowsWithShortcuts.has(wc)) {
-		debug('Window has others shortcuts registered.');
 		shortcutsOfWindow = windowsWithShortcuts.get(wc);
 	} else {
-		debug('This is the first shortcut of the window.');
 		shortcutsOfWindow = [];
 		windowsWithShortcuts.set(wc, shortcutsOfWindow);
 
@@ -211,7 +186,6 @@ function register(win, accelerator, callback) {
 		}
 	}
 
-	debug('Adding shortcut to window set.');
 
 	const eventStamp = toKeyEvent(accelerator);
 
@@ -220,8 +194,6 @@ function register(win, accelerator, callback) {
 		callback,
 		enabled: true
 	});
-
-	debug('Shortcut registered.');
 }
 
 /**
@@ -237,10 +209,7 @@ function unregister(win, accelerator) {
 		wc = ANY_WINDOW;
 		accelerator = win;
 	} else {
-		if (win.isDestroyed()) {
-			debug('Early return because window is destroyed.');
-			return;
-		}
+		if (win.isDestroyed()) return
 
 		wc = win.webContents;
 	}
@@ -254,16 +223,11 @@ function unregister(win, accelerator) {
 		return;
 	}
 
-	debug(`Unregistering callback for ${accelerator} on window ${title(win)}`);
 
 	_checkAccelerator(accelerator);
 
-	debug(`${accelerator} seems a valid shortcut sequence.`);
 
-	if (!windowsWithShortcuts.has(wc)) {
-		debug('Early return because window has never had shortcuts registered.');
-		return;
-	}
+	if (!windowsWithShortcuts.has(wc)) return
 
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 
