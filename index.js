@@ -108,7 +108,6 @@ const _onBeforeInput = shortcutsOfWindow => (e, input) => {
 	for (const { eventStamp, callback, enabled } of shortcutsOfWindow) {
 		if (equals(eventStamp, event) && enabled) {
 			callback();
-			return;
 		}
 	}
 };
