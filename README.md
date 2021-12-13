@@ -3,8 +3,6 @@
 A module to register/unregister a keyboard shortcut
 locally to a BrowserWindow instance, without using a Menu.
 
-This is built to circumvent [this Electron issue](https://github.com/atom/electron/issues/1334).
-
 # Installation
 
 ```bash
@@ -41,18 +39,9 @@ npm install --save electron-localshortcut
 	electronLocalshortcut.unregisterAll(win);
 ```
 
-# App shortcuts.
-
-If you omit the window argument of `isRegistered`, `unregisterAll`, `unregister` and `register` methods, the shortcut is registered as an app shortcut.
-It is active when any window of the app is focused.
-
-They differ from native [global-shortcuts](https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md) because they doesn't interfere with other apps running on the same machine.
-
-# Shortcut behaviour.
+# Shortcut behavior.
 
 If you register a shortcut for a window, this module unregister the shortcut when the window is hidden, unfocused or minimized, and automatically restore it when the window is restored and focused again.
-
-If you register an app shortcut, this module unregister the shortcut when all windows of your app are hidden, unfocused or minimized, and automatically restore it when any window of your app is restored and focused again.
 
 # API
 
@@ -101,8 +90,6 @@ Registers the shortcut `accelerator`on the BrowserWindow instance.
 **Parameters**
 
 -   `win` **BrowserWindow** BrowserWindow instance to register.
-    This argument could be omitted, in this case the function register
-    the shortcut on all app windows.
 -   `accelerator` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** the shortcut to register
 -   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** This function is called when the shortcut is pressed
     and the window is focused and not minimized.
@@ -116,8 +103,6 @@ Unregisters the shortcut of `accelerator` registered on the BrowserWindow instan
 **Parameters**
 
 -   `win` **BrowserWindow** BrowserWindow instance to unregister.
-    This argument could be omitted, in this case the function unregister the shortcut
-    on all app windows. If you registered the shortcut on a particular window instance, it will do nothing.
 -   `accelerator` **([String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>)** the shortcut to unregister
 
 Returns **[Undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined)**
@@ -129,13 +114,10 @@ is registered on `window`.
 
 **Parameters**
 
--   `win` **BrowserWindow** BrowserWindow instance to check. This argument
-    could be omitted, in this case the function returns whether the shortcut
-    `accelerator` is registered on all app windows. If you registered the
-    shortcut on a particular window instance, it return false.
+-   `win` **BrowserWindow** BrowserWindow instance to check.
 -   `accelerator` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the shortcut to check
 
-Returns **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** if the shortcut `accelerator` is registered on `window`.
+Returns **[Boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**
 
 # License
 
