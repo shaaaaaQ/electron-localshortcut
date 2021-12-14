@@ -156,7 +156,7 @@ app.on('ready', () => {
 					label: 'Check ALL',
 					click() {
 						//const isRegistered = electronLocalshortcut.isRegistered('Alt+A');
-						const isRegistered = electronLocalshortcut.isRegistered(win2, 'Alt+A');
+						const isRegistered = electronLocalshortcut.isRegistered(win2, 'Ctrl+C');
 						process.stdout.write(`${isRegistered}\n`);
 					}
 				}
