@@ -137,8 +137,9 @@ function register(win, accelerator, callback) {
 /**
  * @param  {BrowserWindow} win
  * @param  {String|Array<String>} accelerator
+ * @param  {Function} callback
  */
-function unregister(win, accelerator) {
+function unregister(win, accelerator, callback = undefined) {
 	if (win.isDestroyed()) return
 
 	const wc = win.webContents;
@@ -146,7 +147,7 @@ function unregister(win, accelerator) {
 	if (Array.isArray(accelerator) === true) {
 		accelerator.forEach(accelerator => {
 			if (typeof accelerator === 'string') {
-				unregister(win, accelerator);
+				unregister(win, accelerator, callback);
 			}
 		});
 		return;
@@ -162,7 +163,11 @@ function unregister(win, accelerator) {
 
 	const eventStamp = toKeyEvent(accelerator);
 
-	shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !equals(sc.eventStamp, eventStamp))
+	if (callback) {
+		shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !(equals(sc.eventStamp, eventStamp) && sc.callback === callback))
+	} else {
+		shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !equals(sc.eventStamp, eventStamp))
+	}
 
 	// If the window has no more shortcuts,
 	// we remove it early from the WeakMap
