@@ -92,7 +92,7 @@ const _onBeforeInput = shortcutsOfWindow => (e, input) => {
  * @param  {Function} callback
  */
 function register(win, accelerator, callback) {
-	const wc = win.webContents
+	const wc = win.webContents;
 
 	if (Array.isArray(accelerator) === true) {
 		accelerator.forEach(accelerator => {
@@ -140,7 +140,7 @@ function register(win, accelerator, callback) {
  * @param  {Function} callback
  */
 function unregister(win, accelerator, callback = undefined) {
-	if (win.isDestroyed()) return
+	if (win.isDestroyed()) return;
 
 	const wc = win.webContents;
 
@@ -157,16 +157,16 @@ function unregister(win, accelerator, callback = undefined) {
 	_checkAccelerator(accelerator);
 
 
-	if (!windowsWithShortcuts.has(wc)) return
+	if (!windowsWithShortcuts.has(wc)) return;
 
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 
 	const eventStamp = toKeyEvent(accelerator);
 
 	if (callback) {
-		shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !(equals(sc.eventStamp, eventStamp) && sc.callback === callback))
+		shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !(equals(sc.eventStamp, eventStamp) && sc.callback === callback));
 	} else {
-		shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !equals(sc.eventStamp, eventStamp))
+		shortcutsOfWindow.shortcuts = shortcutsOfWindow.shortcuts.filter(sc => !equals(sc.eventStamp, eventStamp));
 	}
 
 	// If the window has no more shortcuts,
@@ -190,7 +190,7 @@ function isRegistered(win, accelerator) {
 	_checkAccelerator(accelerator);
 	const wc = win.webContents;
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
-	console.log(shortcutsOfWindow.shortcuts)
+	console.log(shortcutsOfWindow.shortcuts);
 	const eventStamp = toKeyEvent(accelerator);
 
 	return shortcutsOfWindow.shortcuts.filter(sc => equals(sc.eventStamp, eventStamp)).length !== 0;

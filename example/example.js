@@ -12,7 +12,7 @@ app.on('ready', () => {
 		electronLocalshortcut.register(win, 'C+C', () => { });
 		// eslint-disable-next-line no-unused-vars
 	} catch (error) {
-
+		console.log('err');
 	}
 
 	electronLocalshortcut.register(win, 'CmdOrCtrl+Z', () => {
