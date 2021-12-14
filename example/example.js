@@ -135,21 +135,21 @@ app.on('ready', () => {
 				{
 					label: 'Unregister ALL',
 					click() {
-						electronLocalshortcut.unregister('Alt+A');
+						//electronLocalshortcut.unregister('Alt+A');
 					}
 				},
 				{
 					label: 'Unregister any ALL',
 					click() {
-						electronLocalshortcut.unregisterAll();
+						//electronLocalshortcut.unregisterAll();
 					}
 				},
 				{
 					label: 'Register ALL',
 					click() {
-						electronLocalshortcut.register('Alt+A', () => {
-							process.stdout.write('ALL\n');
-						});
+						//electronLocalshortcut.register('Alt+A', () => {
+						//process.stdout.write('ALL\n');
+						//});
 					}
 				},
 				{

@@ -3,12 +3,6 @@
 A module to register/unregister a keyboard shortcut
 locally to a BrowserWindow instance, without using a Menu.
 
-# Installation
-
-```bash
-npm install --save electron-localshortcut
-```
-
 # Usage
 
 ```javascript
@@ -38,10 +32,6 @@ npm install --save electron-localshortcut
 	electronLocalshortcut.unregister(win, 'Ctrl+A');
 	electronLocalshortcut.unregisterAll(win);
 ```
-
-# Shortcut behavior.
-
-If you register a shortcut for a window, this module unregister the shortcut when the window is hidden, unfocused or minimized, and automatically restore it when the window is restored and focused again.
 
 # API
 
