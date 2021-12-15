@@ -13,7 +13,9 @@ function _checkAccelerator(accelerator) {
 		const stack = w.stack ? w.stack : w.message;
 		const msg = `WARNING: ${accelerator} is not a valid accelerator.\n${stack}`;
 		console.error(msg);
+		return false;
 	}
+	return true;
 }
 
 /**
@@ -103,7 +105,7 @@ function register(win, accelerator, callback) {
 		return;
 	}
 
-	_checkAccelerator(accelerator);
+	if (!_checkAccelerator(accelerator)) return;
 
 
 	let shortcutsOfWindow;
@@ -154,7 +156,7 @@ function unregister(win, accelerator, callback = undefined) {
 	}
 
 
-	_checkAccelerator(accelerator);
+	if (!_checkAccelerator(accelerator)) return;
 
 
 	if (!windowsWithShortcuts.has(wc)) return;
@@ -187,7 +189,7 @@ function unregister(win, accelerator, callback = undefined) {
  * @return {Boolean}
  */
 function isRegistered(win, accelerator) {
-	_checkAccelerator(accelerator);
+	if (!_checkAccelerator(accelerator)) return;
 	const wc = win.webContents;
 	const shortcutsOfWindow = windowsWithShortcuts.get(wc);
 	console.log(shortcutsOfWindow.shortcuts);
